@@ -8,44 +8,49 @@ class TestReadCsibraData(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.csvDir = os.path.join(os.path.dirname(__file__), 'Data', 'Csibra', 'csv')
+        self.tol = 0.0001 # precision of "expected" values
         
-    def test_1(self):
-        markings = read_csibra_data(os.path.join(self.csvDir, '0210170930.csv'))
+    def close_enough(self, lineA, lineB):
+        return (lineA['TrackName'] == lineB['TrackName'] and \
+            abs(lineA['Time'] - lineB['Time']) < self.tol and \
+            abs(lineA['Duration'] - lineB['Duration']) < self.tol)
+    
+    def test_0108171630(self):
+        markings = read_csibra_data(os.path.join(self.csvDir, '0108171630.csv'))
         expectedLines = [
-            ['trial',	206.5,	47.1],
-            ['trial',	256.2,	55.56666667],
-            ['looking', 206.5,	15.1],
-            ['looking', 221.6333333,	17.5],
-            ['looking', 239.8,	6.533333333],
-            ['looking', 248.2333333,	2.966666667],
-            ['looking', 254.0666667,	2.133333333],
-            ['looking', 256.2,	15.1],
-            ['looking', 271.3333333,	8.366666667],
-            ['looking', 281.3666667,	9.233333333],
-            ['looking', 291.5666667,	13.8],
-            ['looking', 306.6333333,	2.7]]
+            {'TrackName': 'trial',      'Time': 206500.,         'Duration': 47100.},
+            {'TrackName': 'trial',      'Time': 256200.,         'Duration': 55566.66667},
+            {'TrackName': 'looking',    'Time': 206500.,         'Duration': 15100.},
+            {'TrackName': 'looking',    'Time': 221633.3333,     'Duration': 17500.},
+            {'TrackName': 'looking',    'Time': 239800.,         'Duration': 6533.333333},
+            {'TrackName': 'looking',    'Time': 248233.3333,     'Duration': 2966.666667},
+            {'TrackName': 'looking',    'Time': 254066.6667,     'Duration': 2133.333333},
+            {'TrackName': 'looking',    'Time': 256200.,         'Duration': 15100.},
+            {'TrackName': 'looking',    'Time': 271333.3333,     'Duration': 8366.666667},
+            {'TrackName': 'looking',    'Time': 281366.6667,     'Duration': 9233.333333},
+            {'TrackName': 'looking',    'Time': 291566.6667,     'Duration': 13800.},
+            {'TrackName': 'looking',    'Time': 306633.3333,     'Duration': 2700.}]
         for line in expectedLines:
-            self.assertIn(line, markings, 'missing expected line')
+            self.assertTrue(any([self.close_enough(line, markedLine) for markedLine in markings]), 'missing expected line {}'.format(line))
         for line in markings:
-            self.assertIn(line, expectedLines, 'unexpected line')
+            self.assertTrue(any([self.close_enough(line, expectedLine) for expectedLine in expectedLines]), 'unexpected line {}'.format(line))
             
-    def test_2(self):
+    def test_2509171200(self):
         markings = read_csibra_data(os.path.join(self.csvDir, '2509171200.csv'))
         expectedLines = [
-            ['trial',	203.3333333,	36.13333333],
-            ['trial',	242.4333333,	21.3],
-            ['looking',	203.3333333,	15.1],
-            ['looking',	218.4666667,	6.166666667],
-            ['looking',	225.2333333,	7.3],
-            ['looking',	233.3666667,	3.7],
-            ['looking',	240.3666667,	2.066666667],
-            ['looking',	242.4333333,	15.1],
-            ['looking',	257.5666667,	3.766666667],
-            ['looking',	263.7333333,	-263.7333333]]
+            {'TrackName': 'trial',      'Time': 203333.3333,    'Duration': 36133.33333},
+            {'TrackName': 'trial',      'Time': 242433.3333,    'Duration': 21300.},
+            {'TrackName': 'looking',    'Time': 203333.3333,    'Duration': 15100.},
+            {'TrackName': 'looking',    'Time': 218466.6667,    'Duration': 6166.666667},
+            {'TrackName': 'looking',    'Time': 225233.3333,    'Duration': 7300.},
+            {'TrackName': 'looking',    'Time': 233366.6667,    'Duration': 3700.},
+            {'TrackName': 'looking',    'Time': 240366.6667,    'Duration': 2066.666667},
+            {'TrackName': 'looking',    'Time': 242433.3333,    'Duration': 15100.},
+            {'TrackName': 'looking',    'Time': 257566.6667,    'Duration': 3766.666667}]
         for line in expectedLines:
-            self.assertIn(line, markings, 'missing expected line')
+            self.assertTrue(any([self.close_enough(line, markedLine) for markedLine in markings]), 'missing expected line {}'.format(line))
         for line in markings:
-            self.assertIn(line, expectedLines, 'unexpected line')
+            self.assertTrue(any([self.close_enough(line, expectedLine) for expectedLine in expectedLines]), 'unexpected line {}'.format(line))
 
 if __name__ == '__main__':
     unittest.main()
