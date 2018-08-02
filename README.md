@@ -22,7 +22,11 @@ Code for processing looking time data to evaluate impact of parameters
 4. Install requirements:
   `pip install -r requirements.txt`
   
+### Use
+
+The script `preprocess_data.py` performs all data preprocessing that was conducted on the
+data after acquiring from labs, and before other analysis using R. 
   
 ### Data
 
-For now, data is being stored separately due to inclusion of personal information (birthdates).
+For now, data is being stored separately due to inclusion of personal information (birthdates computable) and/or it not being ours.

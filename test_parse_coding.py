@@ -24,8 +24,7 @@ class TestReadCsibraData(unittest.TestCase):
             {'TrackName': 'looking',    'Time': 221633.3333,     'Duration': 17500.},
             {'TrackName': 'looking',    'Time': 239800.,         'Duration': 6533.333333},
             {'TrackName': 'looking',    'Time': 248233.3333,     'Duration': 2966.666667},
-            {'TrackName': 'looking',    'Time': 254066.6667,     'Duration': 2133.333333},
-            {'TrackName': 'looking',    'Time': 256200.,         'Duration': 15100.},
+            {'TrackName': 'looking',    'Time': 254066.6667,     'Duration': 17233.333333},
             {'TrackName': 'looking',    'Time': 271333.3333,     'Duration': 8366.666667},
             {'TrackName': 'looking',    'Time': 281366.6667,     'Duration': 9233.333333},
             {'TrackName': 'looking',    'Time': 291566.6667,     'Duration': 13800.},
@@ -44,8 +43,7 @@ class TestReadCsibraData(unittest.TestCase):
             {'TrackName': 'looking',    'Time': 218466.6667,    'Duration': 6166.666667},
             {'TrackName': 'looking',    'Time': 225233.3333,    'Duration': 7300.},
             {'TrackName': 'looking',    'Time': 233366.6667,    'Duration': 3700.},
-            {'TrackName': 'looking',    'Time': 240366.6667,    'Duration': 2066.666667},
-            {'TrackName': 'looking',    'Time': 242433.3333,    'Duration': 15100.},
+            {'TrackName': 'looking',    'Time': 240366.6667,    'Duration': 17166.666667},
             {'TrackName': 'looking',    'Time': 257566.6667,    'Duration': 3766.666667}]
         for line in expectedLines:
             self.assertTrue(any([self.close_enough(line, markedLine) for markedLine in markings]), 'missing expected line {}'.format(line))
